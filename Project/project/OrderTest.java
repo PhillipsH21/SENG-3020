@@ -18,8 +18,6 @@ public class OrderTest {
 
     @Test(dataProvider="OrderData")
     public void testOrderProcessing(String tid, int quantity, Size size, Finish finish, ProcessingTime processingTime, boolean promotionCode, boolean separate, double expected_value) {
-        Order o = new Order();
-        o.addPrints(quantity, size, finish, processingTime, promotionCode, separate);
-        assertEquals(o.processOrder(), expected_value);
+        assertEquals(OrderProcessing.processOrder(quantity, size, finish, processingTime, promotionCode, separate), expected_value);
    }
 }

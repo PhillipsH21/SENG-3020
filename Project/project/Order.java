@@ -10,6 +10,7 @@ public class Order {
     int quantity;
     boolean separate;
     boolean promotionCode;
+    double total;
 
     public Order() {
         this.first = null;
@@ -17,6 +18,7 @@ public class Order {
         this.quantity = 0;
         this.separate = false;
         this.promotionCode = false;
+        this.total = 0;
     }
 
     public void addPrints(int quantity, Size size, Finish finish, ProcessingTime processingTime, boolean promotionCode, boolean separate) {
@@ -60,12 +62,11 @@ public class Order {
         }
     }
 
-    public double processOrder() {
+    public double getTotal() {
         if (this.quantity <= 0 || this.quantity > 100) {
             return 0;
         }
 
-        double total = 0;
         int count = 1;
 
         if (!separate) {
@@ -77,15 +78,15 @@ public class Order {
                         case GLOSSY:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.14;
+                                    this.total += 0.14;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.34;
+                                    this.total += 0.34;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.68;
+                                    this.total += 0.68;
                                     break;
                             }
                             break;
@@ -93,15 +94,15 @@ public class Order {
                         case MATTE:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.16;
+                                    this.total += 0.16;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.37;
+                                    this.total += 0.37;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.72;
+                                    this.total += 0.72;
                                     break;
                             }
                             break;
@@ -111,15 +112,15 @@ public class Order {
                         case GLOSSY:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.12;
+                                    this.total += 0.12;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.31;
+                                    this.total += 0.31;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.64;
+                                    this.total += 0.64;
                                     break;
                             }
                             break;
@@ -127,15 +128,15 @@ public class Order {
                         case MATTE:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.14;
+                                    this.total += 0.14;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.34;
+                                    this.total += 0.34;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.68;
+                                    this.total += 0.68;
                                     break;
                             }
                             break;
@@ -145,15 +146,15 @@ public class Order {
                         case GLOSSY:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.10;
+                                    this.total += 0.10;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.28;
+                                    this.total += 0.28;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.60;
+                                    this.total += 0.60;
                                     break;
                             }
                             break;
@@ -161,15 +162,15 @@ public class Order {
                         case MATTE:
                             switch (current.size) {
                                 case FOUR_BY_SIX:
-                                    total += 0.12;
+                                    this.total += 0.12;
                                     break;
                             
                                 case FIVE_BY_SEVEN:
-                                    total += 0.31;
+                                    this.total += 0.31;
                                     break;
 
                                 case EIGHT_BY_TEN:
-                                    total += 0.64;
+                                    this.total += 0.64;
                                     break;
                             }
                             break;
@@ -182,14 +183,14 @@ public class Order {
 
             if (this.first.processingTime == ProcessingTime.ONE_HOUR) {
                 if (quantity <= 60) {
-                    total += 1;
+                    this.total += 1;
                 } else {
-                    total += 1.5;
+                    this.total += 1.5;
                 }
             }
 
             if (promotionCode && quantity == 100) {
-                total -= 2;
+                this.total -= 2;
             }
         } else {
             boolean addCharge = false;
@@ -200,30 +201,30 @@ public class Order {
                     case GLOSSY:
                         switch (current.size) {
                             case FOUR_BY_SIX:
-                                total += 0.19;
+                                this.total += 0.19;
                                 break;
                         
                             case FIVE_BY_SEVEN:
-                                total += 0.39;
+                                this.total += 0.39;
                                 break;
                             
                             case EIGHT_BY_TEN:
-                                total += 0.79;
+                                this.total += 0.79;
                         }
                         break;
                 
                     case MATTE:
                         switch (current.size) {
                             case FOUR_BY_SIX:
-                                total += 0.23;
+                                this.total += 0.23;
                                 break;
                         
                             case FIVE_BY_SEVEN:
-                                total += 0.45;
+                                this.total += 0.45;
                                 break;
                             
                             case EIGHT_BY_TEN:
-                                total += 0.87;
+                                this.total += 0.87;
                         }
                         break;
                 }
@@ -238,19 +239,19 @@ public class Order {
 
             if (addCharge) {
                 if (quantity <= 60) {
-                    total += 2;
+                    this.total += 2;
                 } else {
-                    total += 2.5;
+                    this.total += 2.5;
                 }
             }
         }
 
-        if (total > 35 && (!promotionCode || separate)) {
-            total *= 0.95;
+        if (this.total > 35 && (!this.promotionCode || this.separate)) {
+            this.total *= 0.95;
         }
         
-        total = Math.round(total * 100) / 100.0;
-        return total;
+        this.total = Math.round(this.total * 100) / 100.0;
+        return this.total;
     }
 
     public int getQuantity() {
