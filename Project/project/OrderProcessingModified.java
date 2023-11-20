@@ -1,15 +1,16 @@
 package project;
 
+import java.util.Scanner;
+
 import project.Print.Finish;
 import project.Print.ProcessingTime;
 import project.Print.Size;
-import java.util.Scanner;
 
-public class OrderProcessing {
+public class OrderProcessingModified {
     public static double processOrder(int quantity, Size size, Finish finish, ProcessingTime processingTime, boolean promotionCode, boolean separate) {
         Order o = new Order();
 
-        if (quantity <= 0 || quantity > 100) {
+        if (quantity <= 0 || quantity < 100) {
             return o.getTotal();
         }
 
@@ -194,7 +195,7 @@ public class OrderProcessing {
             }
         }
 
-        if (o.total > 35 && (!promotionCode || separate)) {
+        if (o.total > 35 && (promotionCode || separate)) {
             o.total *= 0.95;
         }
         
